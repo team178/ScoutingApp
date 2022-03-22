@@ -1,2 +1,2 @@
 # ScoutingApp
-Scouting app for Team178 
+Code for our scouting app
