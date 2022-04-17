@@ -298,6 +298,7 @@ class ScoutingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold (
+      appBar: AppBar(title: Text('Scouting Form')),
       body: Container( 
         alignment: Alignment.center,
         child: Column(
@@ -399,42 +400,49 @@ class SyncPage extends StatelessWidget {
               )
             ),
             Text(
-              "rithvik satyavarapu",
+              "Rithvik Satyavarapu",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
               )
             ),
             Text(
-              "patrick brennen",
+              "Patrick Brennan",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
               )
             ),
             Text(
-              "henry latt",
+              "Henry Latt",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
               )
             ),
             Text(
-              "chiranswaroop gulappa",
+              "Andy Chen",
+              style: TextStyle(
+              fontSize: size.width * 0.03,
+              fontWeight: FontWeight.bold,
+              )
+            ),
+            Text(
+              "Chiranswaroop Gulappa",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
               )
             ),
             Text(
-              "tim barron",
+              "Tim Barron",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
               )
             ),
             Text(
-              "sai",
+              "Sai Thyarla",
               style: TextStyle(
                 fontSize: size.width * 0.03,
                 fontWeight: FontWeight.bold, 
