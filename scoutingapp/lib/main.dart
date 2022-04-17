@@ -111,7 +111,9 @@ class LoginPage extends StatelessWidget {
             TextField(
               obscureText: false,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
                 labelText: 'Username',
               ),
             ),
@@ -119,7 +121,9 @@ class LoginPage extends StatelessWidget {
             TextField(
               obscureText: true,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
                 labelText: 'Password',
               ),
             ),
@@ -213,6 +217,26 @@ class HomePage extends StatelessWidget {
                   )
                 );
               },
+            ),
+            // sync button
+            ElevatedButton.icon(
+              label: Text("Sync"),
+              icon: Icon(Icons.all_inclusive, size: 32),
+              style: ElevatedButton.styleFrom(
+                shape: StadiumBorder(), 
+                side: BorderSide(width: 1, color: Colors.grey),
+                minimumSize: Size(150.0, 50.0), 
+              ),
+              onPressed: () {
+                Navigator.push( 
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SyncPage();
+                    },
+                  )
+                );
+              },
             )
           ]
         )
@@ -244,7 +268,6 @@ class MatchesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold ( 
-      // scout button
       appBar: AppBar(title: Text('Upcoming Matches')),
       body: ListView.builder(
         padding: const EdgeInsets.all(8),
@@ -292,16 +315,40 @@ class ScoutingPage extends StatelessWidget {
             TextField(
               obscureText: false,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Team Number',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
+                labelText: 'Team Number',  
               ),
             ),
             // match number 
             TextField(
               obscureText: false,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
                 labelText: 'Match Number',
+              ),
+            ),
+            // # of points scored
+            TextField(
+              obscureText: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
+                labelText: '# of Points Scored',
+              ),
+            ),
+            // Other Comments
+            TextField(
+              obscureText: false,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30)
+                ),
+                labelText: 'Other Comments',
               ),
             ),
             // button
@@ -325,6 +372,87 @@ class ScoutingPage extends StatelessWidget {
                 );
               },
             )
+          ]
+        )
+      )
+    );
+  } 
+}
+
+// sync page 
+class SyncPage extends StatelessWidget {
+  // variables
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold ( 
+      appBar: AppBar(title: Text('Sync')),
+      body: Container (
+        alignment: Alignment.center,
+        child: Column(
+          children: <Widget>[
+            Text(
+              "Contributors",
+              style: TextStyle(
+                fontSize: size.width * 0.08,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "rithvik satyavarapu",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "patrick brennen",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "henry latt",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "chiranswaroop gulappa",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "tim barron",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            Text(
+              "sai",
+              style: TextStyle(
+                fontSize: size.width * 0.03,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
+            SizedBox(height: size.height * 0.05),
+            /*
+             ShaderMask(
+             
+             )
+            */ 
+            Text(
+              "you are done syncing now go scout",
+              style: TextStyle(
+                fontSize: size.width * 0.1,
+                fontWeight: FontWeight.bold, 
+              )
+            ),
           ]
         )
       )
