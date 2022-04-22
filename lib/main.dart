@@ -13,12 +13,10 @@ void main() {
 
 class ScoutingApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ScoutingWizard',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: WelcomePage(),
     );
   }
@@ -26,7 +24,7 @@ class ScoutingApp extends StatelessWidget {
 
 // splash screen
 
-// welcome page 
+// welcome page
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -39,45 +37,38 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // text 
-            Text(
-              "Scouting Wizard",
-              style: TextStyle(
-                fontSize: size.width * 0.08,
-                fontWeight: FontWeight.bold, 
-                fontStyle: FontStyle.italic,
-                )
-              ),
+            // text
+            Text("Scouting Wizard",
+                style: TextStyle(
+                  fontSize: size.width * 0.08,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                )),
             SizedBox(height: size.height * 0.01),
-            Text( 
-              "A scouting app for Team 178",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                color: Colors.grey[700],
-              )
-            ),
+            Text("A scouting app for Team 178",
+                style: TextStyle(
+                  fontSize: size.width * 0.03,
+                  color: Colors.grey[700],
+                )),
             SizedBox(height: size.height * 0.05),
             // hawk animation
-            
+
             // button
             SizedBox(height: size.height * 0.05),
             ElevatedButton.icon(
               label: Text("Login"),
               icon: Icon(Icons.account_circle, size: 32),
               style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
+                shape: StadiumBorder(),
                 side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
+                minimumSize: Size(150.0, 50.0),
               ),
               onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginPage();
-                    },
-                  )
-                );
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return LoginPage();
+                  },
+                ));
               },
             )
           ],
@@ -93,155 +84,131 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold (
-      body: Container( 
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            // text 
-            Text(
-              "Sign In",
-              style: TextStyle(
-                fontSize: size.width * 0.08,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            // username
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: 'Username',
-              ),
-            ),
-            // password 
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: 'Password',
-              ),
-            ),
-            // button
-            SizedBox(height: size.height * 0.05),
-            ElevatedButton.icon(
-              label: Text("Login"),
-              icon: Icon(Icons.assignment_ind, size: 32),
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
-                side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
-              ),
-              onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
+    return Scaffold(
+        body: Container(
+            alignment: Alignment.center,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // text
+                  Text("Sign In",
+                      style: TextStyle(
+                        fontSize: size.width * 0.08,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  // username
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: 'Username',
+                    ),
+                  ),
+                  // password
+                  TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: 'Password',
+                    ),
+                  ),
+                  // button
+                  SizedBox(height: size.height * 0.05),
+                  ElevatedButton.icon(
+                    label: Text("Login"),
+                    icon: Icon(Icons.assignment_ind, size: 32),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: Size(150.0, 50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return HomePage();
+                        },
+                      ));
                     },
                   )
-                );
-              },
-            )
-          ]
-        )
-      )
-    );
-  } 
+                ])));
+  }
 }
 
-// home page 
+// home page
 
 class HomePage extends StatelessWidget {
   // variables
   final String username = "Nerd";
-  
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold (
-      body: Container(
-        alignment: Alignment.center,
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            // text 
-            Text(
-              "Welcome, " + username,
-              style: TextStyle(
-                fontSize: size.width * 0.08,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            // upcoming matches
-            ElevatedButton.icon(
-              label: Text("Upcoming Matches"),
-              icon: Icon(Icons.assessment_outlined, size: 32),
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
-                side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
-              ),
-              onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return MatchesPage();
+    return Scaffold(
+        body: Container(
+            alignment: Alignment.center,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // text
+                  Text("Welcome, " + username,
+                      style: TextStyle(
+                        fontSize: size.width * 0.08,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  // upcoming matches
+                  ElevatedButton.icon(
+                    label: Text("Upcoming Matches"),
+                    icon: Icon(Icons.assessment_outlined, size: 32),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: Size(150.0, 50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return MatchesPage();
+                        },
+                      ));
+                    },
+                  ),
+                  // scout button
+                  ElevatedButton.icon(
+                    label: Text("Scout"),
+                    icon: Icon(Icons.auto_fix_high, size: 32),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: Size(150.0, 50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return ScoutingPage();
+                        },
+                      ));
+                    },
+                  ),
+                  // sync button
+                  ElevatedButton.icon(
+                    label: Text("Sync"),
+                    icon: Icon(Icons.all_inclusive, size: 32),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: Size(150.0, 50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return SyncPage();
+                        },
+                      ));
                     },
                   )
-                );
-              },
-            ),
-            // scout button
-            ElevatedButton.icon(
-              label: Text("Scout"),
-              icon: Icon(Icons.auto_fix_high, size: 32),
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
-                side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
-              ),
-              onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return ScoutingPage();
-                    },
-                  )
-                );
-              },
-            ),
-            // sync button
-            ElevatedButton.icon(
-              label: Text("Sync"),
-              icon: Icon(Icons.all_inclusive, size: 32),
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
-                side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
-              ),
-              onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SyncPage();
-                    },
-                  )
-                );
-              },
-            )
-          ]
-        )
-      )
-    );
+                ])));
   }
 }
 
@@ -249,221 +216,175 @@ class HomePage extends StatelessWidget {
 
 class MatchesPage extends StatelessWidget {
   // variables
-  final List<String> teams = <String>[
-      "178",
-      "230",
-      "176"
-  ]; 
-  final List<String> matchNum = <String>[
-      "20",
-      "30",
-      "40"
-  ]; 
+  final List<String> teams = <String>["178", "230", "176"];
+  final List<String> matchNum = <String>["20", "30", "40"];
   final List<Color> colors = <Color>[
-      Colors.redAccent,
-      Colors.blueAccent,
-      Colors.redAccent,
+    Colors.redAccent,
+    Colors.blueAccent,
+    Colors.redAccent,
   ];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold ( 
-      appBar: AppBar(title: Text('Upcoming Matches')),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: teams.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card (
-            color: colors[index],
-            child: ListTile(
-              title: Text(
-                'Team ${teams[index]} | Match ${matchNum[index]}',
-                style: TextStyle(
-                  fontSize: size.width * 0.08,
-                  fontWeight: FontWeight.bold, 
-                )
-              ),
-            ),
-          );
-        }
-      ) 
-    );
-  } 
+    return Scaffold(
+        appBar: AppBar(title: Text('Upcoming Matches')),
+        body: ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: teams.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                color: colors[index],
+                child: ListTile(
+                  title: Text('Team ${teams[index]} | Match ${matchNum[index]}',
+                      style: TextStyle(
+                        fontSize: size.width * 0.08,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+              );
+            }));
+  }
 }
 
-// scouting form 
+// scouting form
 
 class ScoutingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold (
-      appBar: AppBar(title: Text('Scouting Form')),
-      body: Container( 
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            // text 
-            Text(
-              "Scouting Form",
-              style: TextStyle(
-                fontSize: size.width * 0.08,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            // team number 
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: 'Team Number',  
-              ),
-            ),
-            // match number 
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: 'Match Number',
-              ),
-            ),
-            // # of points scored
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: '# of Points Scored',
-              ),
-            ),
-            // Other Comments
-            TextField(
-              obscureText: false,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                labelText: 'Other Comments',
-              ),
-            ),
-            // button
-            SizedBox(height: size.height * 0.05),
-            ElevatedButton.icon(
-              label: Text("Submit"),
-              icon: Icon(Icons.add, size: 32),
-              style: ElevatedButton.styleFrom(
-                shape: StadiumBorder(), 
-                side: BorderSide(width: 1, color: Colors.grey),
-                minimumSize: Size(150.0, 50.0), 
-              ),
-              onPressed: () {
-                Navigator.push( 
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePage();
+    return Scaffold(
+        appBar: AppBar(title: Text('Scouting Form')),
+        body: Container(
+            alignment: Alignment.center,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // text
+                  Text("Scouting Form",
+                      style: TextStyle(
+                        fontSize: size.width * 0.08,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  // team number
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: 'Team Number',
+                    ),
+                  ),
+                  // match number
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: 'Match Number',
+                    ),
+                  ),
+                  // # of points scored
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: '# of Points Scored',
+                    ),
+                  ),
+                  // Other Comments
+                  TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      labelText: 'Other Comments',
+                    ),
+                  ),
+                  // button
+                  SizedBox(height: size.height * 0.05),
+                  ElevatedButton.icon(
+                    label: Text("Submit"),
+                    icon: Icon(Icons.add, size: 32),
+                    style: ElevatedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      side: BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: Size(150.0, 50.0),
+                    ),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return HomePage();
+                        },
+                      ));
                     },
                   )
-                );
-              },
-            )
-          ]
-        )
-      )
-    );
-  } 
+                ])));
+  }
 }
 
-// sync page 
+// sync page
 class SyncPage extends StatelessWidget {
   // variables
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold ( 
-      appBar: AppBar(title: Text('Sync')),
-      body: Container (
-        alignment: Alignment.center,
-        child: Column(
-          children: <Widget>[
-            Text(
-              "Contributors",
-              style: TextStyle(
-                fontSize: size.width * 0.08,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Rithvik Satyavarapu",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Patrick Brennan",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Henry Latt",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Andy Chen",
-              style: TextStyle(
-              fontSize: size.width * 0.03,
-              fontWeight: FontWeight.bold,
-              )
-            ),
-            Text(
-              "Chiranswaroop Gulappa",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Tim Barron",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            Text(
-              "Sai Thyarla",
-              style: TextStyle(
-                fontSize: size.width * 0.03,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-            SizedBox(height: size.height * 0.05),
-            /*
+    return Scaffold(
+        appBar: AppBar(title: Text('Sync')),
+        body: Container(
+            alignment: Alignment.center,
+            child: Column(children: <Widget>[
+              Text("Contributors",
+                  style: TextStyle(
+                    fontSize: size.width * 0.08,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Rithvik Satyavarapu",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Patrick Brennan",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Henry Latt",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Andy Chen",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Chiranswaroop Gulappa",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Tim Barron",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              Text("Sai Thyarla",
+                  style: TextStyle(
+                    fontSize: size.width * 0.03,
+                    fontWeight: FontWeight.bold,
+                  )),
+              SizedBox(height: size.height * 0.05),
+              /*
              ShaderMask(
              
              )
-            */ 
-            Text(
-              "you are done syncing now go scout",
-              style: TextStyle(
-                fontSize: size.width * 0.1,
-                fontWeight: FontWeight.bold, 
-              )
-            ),
-          ]
-        )
-      )
-    );
-  } 
+            */
+              Text("you are done syncing now go scout",
+                  style: TextStyle(
+                    fontSize: size.width * 0.1,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ])));
+  }
 }
