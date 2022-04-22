@@ -14,6 +14,15 @@ Always make sure that your code runs and works the way it should *before* you co
 
 Make sure your commit messages are descriptive enough to know what you did by just looking at it. You can read here on how to [write descriptive commit messages](https://cbea.ms/git-commit/).
 
+### Running
+
+The app can be run using `flutter run`, as long as flutter and an emulator is available. You can install [Android Studio](https://developer.android.com/studio/) in order to get an emulator, so you can test the application without needing an actual android tablet.
+
+The server application can be run using regular dart, by doing
+```zsh
+dart run lib/server.dart
+```
+
 ### Flutter
 
 A few resources to get you started if this is your first Flutter project:
@@ -24,3 +33,4 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
