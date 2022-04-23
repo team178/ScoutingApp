@@ -7,7 +7,8 @@ class Team {
   Team({required this.number, required this.name, required this.robot});
 
   static Team fromJson(item) {
-    return Team(number: item['team_number'], name: item['nickname'], robot: {});
+    return Team(
+        number: item['number'], name: item['name'], robot: item['robot']);
   }
 
   Map<String, dynamic> toJson() {
@@ -32,9 +33,8 @@ class Match {
     return Match(
         number: item['match_number'],
         key: item['key'],
-        redAlliance: List<String>.from(item['alliances']['red']['team_keys']),
-        blueAlliance:
-            List<String>.from(item['alliances']['blue']['team_keys']));
+        redAlliance: List<String>.from(item['redAlliance']),
+        blueAlliance: List<String>.from(item['blueAlliance']));
   }
 
   Map<String, dynamic> toJson() {
@@ -49,12 +49,21 @@ class Match {
 
 /// Data created by the scouting app about a Team in a Match
 class ScoutData {
-  final int matchNumber;
+  final String matchKey;
   final int teamNumber;
   final Object data;
 
   ScoutData(
-      {required this.matchNumber,
-      required this.teamNumber,
-      required this.data});
+      {required this.matchKey, required this.teamNumber, required this.data});
+
+  static ScoutData fromJson(item) {
+    return ScoutData(
+        matchKey: item['match_key'],
+        teamNumber: item['team_number'],
+        data: item['data']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'match_key': matchKey, 'team_number': teamNumber, 'data': data};
+  }
 }
