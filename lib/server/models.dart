@@ -20,8 +20,8 @@ class Team {
 class Match {
   final int number;
   final String key;
-  final List<String> redAlliance;
-  final List<String> blueAlliance;
+  final List<int> redAlliance;
+  final List<int> blueAlliance;
 
   Match(
       {required this.number,
@@ -33,8 +33,8 @@ class Match {
     return Match(
         number: item['match_number'],
         key: item['key'],
-        redAlliance: List<String>.from(item['redAlliance']),
-        blueAlliance: List<String>.from(item['blueAlliance']));
+        redAlliance: List<int>.from(item['redAlliance']),
+        blueAlliance: List<int>.from(item['blueAlliance']));
   }
 
   Map<String, dynamic> toJson() {

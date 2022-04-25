@@ -46,8 +46,8 @@ class TBA {
         .map((dynamic item) => Match(
             key: item['key'],
             number: item['match_number'],
-            redAlliance: List<String>.from(item['alliances']['red']['team_keys']),
-            blueAlliance: List<String>.from(item['alliances']['blue']['team_keys'])))
+            redAlliance: List<int>.from(item['alliances']['red']['team_keys'].map((item) => int.parse(item.substring(3)))),
+            blueAlliance: List<int>.from(item['alliances']['blue']['team_keys'].map((item) => int.parse(item.substring(3))))))
         .toList();
 
     return matches;
