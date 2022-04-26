@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'models.dart';
+import '../common/models.dart';
 
 /// Interface for retrieving data from The Blue Alliance API.
 ///

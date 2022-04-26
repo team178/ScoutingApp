@@ -1,6 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
 
-import 'models.dart';
+import '../common/models.dart';
 
 class Mongo {
   late final Db _db;

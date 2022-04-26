@@ -1,4 +1,4 @@
-import 'package:scoutingapp/server/models.dart';
+import 'package:scoutingapp/common/models.dart';
 import 'package:scoutingapp/server/mongo.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
