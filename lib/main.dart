@@ -66,7 +66,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return LoginPage();
+                    return HomePage();
                   },
                 ));
               },
@@ -75,64 +75,6 @@ class WelcomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-// login page
-
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        body: Container(
-            alignment: Alignment.center,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  // text
-                  Text("Sign In",
-                      style: TextStyle(
-                        fontSize: size.width * 0.08,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  // username
-                  TextField(
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      labelText: 'Username',
-                    ),
-                  ),
-                  // password
-                  TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30)),
-                      labelText: 'Password',
-                    ),
-                  ),
-                  // button
-                  SizedBox(height: size.height * 0.05),
-                  ElevatedButton.icon(
-                    label: Text("Login"),
-                    icon: Icon(Icons.assignment_ind, size: 32),
-                    style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(width: 1, color: Colors.grey),
-                      minimumSize: Size(150.0, 50.0),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return HomePage();
-                        },
-                      ));
-                    },
-                  )
-                ])));
   }
 }
 
@@ -157,23 +99,6 @@ class HomePage extends StatelessWidget {
                         fontSize: size.width * 0.08,
                         fontWeight: FontWeight.bold,
                       )),
-                  // upcoming matches
-                  ElevatedButton.icon(
-                    label: Text("Upcoming Matches"),
-                    icon: Icon(Icons.assessment_outlined, size: 32),
-                    style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(width: 1, color: Colors.grey),
-                      minimumSize: Size(150.0, 50.0),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) {
-                          return MatchesPage();
-                        },
-                      ));
-                    },
-                  ),
                   // scout button
                   ElevatedButton.icon(
                     label: Text("Scout"),
@@ -209,40 +134,6 @@ class HomePage extends StatelessWidget {
                     },
                   )
                 ])));
-  }
-}
-
-// upcoming matches
-
-class MatchesPage extends StatelessWidget {
-  // variables
-  final List<String> teams = <String>["178", "230", "176"];
-  final List<String> matchNum = <String>["20", "30", "40"];
-  final List<Color> colors = <Color>[
-    Colors.redAccent,
-    Colors.blueAccent,
-    Colors.redAccent,
-  ];
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(title: Text('Upcoming Matches')),
-        body: ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: teams.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                color: colors[index],
-                child: ListTile(
-                  title: Text('Team ${teams[index]} | Match ${matchNum[index]}',
-                      style: TextStyle(
-                        fontSize: size.width * 0.08,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-              );
-            }));
   }
 }
 
