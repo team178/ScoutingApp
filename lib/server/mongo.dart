@@ -35,19 +35,25 @@ class Mongo {
     await _dataCol.insertMany(datas.map((data) => data.toJson()).toList());
   }
 
-  Future<List<Team>> getAllTeams() async {
+  Future<List<Team>> getTeams(Map<String, dynamic> query) async {
     var teams = _teamCol.aggregateToStream([
       {
         "\$project": {"_id": 0}
+      },
+      {
+        "\$match": query
       }
     ]);
     return teams.map((team) => Team.fromJson(team)).toList();
   }
 
-  Future<List<Match>> getAllMatches() async {
+  Future<List<Match>> getMatches(Map<String, dynamic> query) async {
     var matches = _matchCol.aggregateToStream([
       {
         "\$project": {"_id": 0}
+      },
+      {
+        "\$match": query
       }
     ]);
     return matches
@@ -55,10 +61,13 @@ class Mongo {
         .toList();
   }
 
-  Future<List<ScoutData>> getAllDatas() async {
+  Future<List<ScoutData>> getDatas(Map<String, dynamic> query) async {
     var datas = _dataCol.aggregateToStream([
       {
         "\$project": {"_id": 0}
+      },
+      {
+        "\$match": query
       }
     ]);
     return datas
