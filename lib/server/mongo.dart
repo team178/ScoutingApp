@@ -1,4 +1,5 @@
 import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
+import 'package:scoutingapp/common/form.dart';
 
 import 'package:scoutingapp/common/models.dart';
 
@@ -8,6 +9,7 @@ class Mongo {
   late final DbCollection _teamCol;
   late final DbCollection _matchCol;
   late final DbCollection _dataCol;
+  late final DbCollection _formsCol;
 
   Mongo() {
     _db = Db('mongodb://localhost:27017/scouting');
@@ -18,9 +20,14 @@ class Mongo {
 
     _teamCol = _db.collection('teams');
     _teamCol.createIndex(key: "number", unique: true);
+
     _matchCol = _db.collection('matches');
     _matchCol.createIndex(key: "key", unique: true);
+
     _dataCol = _db.collection('data');
+
+    _formsCol = _db.collection('forms');
+    _formsCol.createIndex(key: "name", unique: true);
   }
 
   Future<void> insertTeams(List<Team> teams) async {
@@ -33,6 +40,14 @@ class Mongo {
 
   Future<void> insertDatas(List<ScoutData> datas) async {
     await _dataCol.insertMany(datas.map((data) => data.toJson()).toList());
+  }
+
+  Future<void> insertForm(ScoutForm form) async {
+    await insertForms([form]);
+  }
+  
+  Future<void> insertForms(List<ScoutForm> forms) async {
+    await _formsCol.insertMany(forms.map((form) => form.toJson()).toList());
   }
 
   Future<List<Team>> getTeams(Map<String, dynamic> query) async {
@@ -73,5 +88,17 @@ class Mongo {
     return datas
         .map((data) => ScoutData.fromJson(data))
         .toList();
+  }
+
+  Future<ScoutForm> getForm(String name) async {
+    var form = await _formsCol.aggregateToStream([
+      {
+        "\$project": {"_id": 0}
+      },
+      {
+        "\$match": {"name": name}
+      }
+    ]).first;
+    return ScoutForm.fromJson(form);
   }
 }
