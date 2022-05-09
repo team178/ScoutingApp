@@ -1,4 +1,4 @@
-import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
+import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection, where;
 import 'package:scoutingapp/common/form.dart';
 
 import 'package:scoutingapp/common/models.dart';
@@ -50,6 +50,14 @@ class Mongo {
     await _formsCol.insertMany(forms.map((form) => form.toJson()).toList());
   }
 
+  Future<Team?> getTeam(int number) async {
+    var teams = await getTeams({'number': number});
+    if (teams.isEmpty) {
+      return null;
+    }
+    return teams.first;
+  }
+
   Future<List<Team>> getTeams(Map<String, dynamic> query) async {
     var teams = _teamCol.aggregateToStream([
       {
@@ -62,6 +70,22 @@ class Mongo {
     return teams.map((team) => Team.fromJson(team)).toList();
   }
 
+  Future<Match?> getMatchByNumber(int number) async {
+    var matches = await getMatches({'number': number});
+    if (matches.isEmpty) {
+      return null;
+    }
+    return matches.first;
+  }
+
+  Future<Match?> getMatchByID(String id) async {
+    var matches = await getMatches({'key': id});
+    if (matches.isEmpty) {
+      return null;
+    }
+    return matches.first;
+  }
+
   Future<List<Match>> getMatches(Map<String, dynamic> query) async {
     var matches = _matchCol.aggregateToStream([
       {
@@ -69,6 +93,9 @@ class Mongo {
       },
       {
         "\$match": query
+      },
+      {
+        "\$sort": {"number": 1}
       }
     ]);
     return matches
