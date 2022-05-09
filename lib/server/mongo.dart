@@ -1,7 +1,6 @@
 import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
 
 import 'package:scoutingapp/common/models.dart';
-import 'package:scoutingapp/common/utils.dart';
 
 class Mongo {
   late final Db _db;
@@ -42,7 +41,7 @@ class Mongo {
         "\$project": {"_id": 0}
       }
     ]);
-    return teams.map((team) => MapSerializeable.fromJson<Team>(team)).toList();
+    return teams.map((team) => Team.fromJson(team)).toList();
   }
 
   Future<List<Match>> getAllMatches() async {
@@ -52,7 +51,7 @@ class Mongo {
       }
     ]);
     return matches
-        .map((match) => MapSerializeable.fromJson<Match>(match))
+        .map((match) => Match.fromJson(match))
         .toList();
   }
 
@@ -63,7 +62,7 @@ class Mongo {
       }
     ]);
     return datas
-        .map((data) => MapSerializeable.fromJson<ScoutData>(data))
+        .map((data) => ScoutData.fromJson(data))
         .toList();
   }
 }

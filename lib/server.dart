@@ -2,8 +2,6 @@ import 'package:scoutingapp/common/models.dart';
 import 'package:scoutingapp/server/mongo.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
-import 'package:scoutingapp/common/utils.dart';
-
 void main() async => await shelfRun(init);
 
 Future<Handler> init() async {
@@ -18,7 +16,7 @@ Future<Handler> init() async {
 
     var data = await request.body.asJson;
     List<ScoutData> datas = List<ScoutData>.from(data
-        .map((item) => MapSerializeable.fromJson<ScoutData>(item))
+        .map((item) => ScoutData.fromJson(item))
         .toList());
 
     await db.insertDatas(datas);
