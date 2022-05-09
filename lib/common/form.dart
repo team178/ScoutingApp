@@ -1,8 +1,6 @@
-import 'package:scoutingapp/common/utils.dart';
-
 enum InputType { boolean, multiselect, text, number }
 
-class SelectOption with MapSerializeable {
+class SelectOption {
   final String value;
   final String label;
 
@@ -15,8 +13,10 @@ class Question {
   final List<dynamic>? options;
 
   Question({required this.title, required this.type, this.options});
-  Question.fromJson({required this.title, required type, this.options})
-      : type = InputType.values.byName(type);
+  Question.fromJson(Map<String, dynamic> data)
+      : title = data['title'],
+        type = InputType.values[data['type']],
+        options = data['options'];
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> data = {'name': title, 'type': type.name};
@@ -27,9 +27,19 @@ class Question {
   }
 }
 
-class ScoutForm with MapSerializeable {
+class ScoutForm {
   final String name;
-  final List<Question> questions = [];
+  final List<Question> questions;
 
-  ScoutForm({required this.name});
+  ScoutForm({required this.name, this.questions = const []});
+
+  ScoutForm.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        questions = json['questions']
+            .map((question) => Question.fromJson(question))
+            .toList();
+
+  Map<String, dynamic> toJson() {
+    return {'name': name, 'questions': questions.map(((e) => e.toJson())).toList()};
+  }
 }
