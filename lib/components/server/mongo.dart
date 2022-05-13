@@ -111,13 +111,13 @@ class Mongo {
     return datas.map((data) => ScoutData.fromJson(data)).toList();
   }
 
-  Future<ScoutForm> getForm(String name) async {
+  Future<ScoutForm> getForm(String id) async {
     var form = await _formsCol.aggregateToStream([
       {
         "\$project": {"_id": 0}
       },
       {
-        "\$match": {"name": name}
+        "\$match": {"id": id}
       }
     ]).first;
     return ScoutForm.fromJson(form);
