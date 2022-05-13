@@ -8,13 +8,15 @@ class SelectOption {
 }
 
 class Question {
+  final String id;
   final String title;
   final InputType type;
   final List<dynamic>? options;
 
-  Question({required this.title, required this.type, this.options});
+  Question({required this.id, required this.title, required this.type, this.options});
   Question.fromJson(Map<String, dynamic> data)
-      : title = data['title'],
+      : id = data['id'],
+        title = data['title'],
         type = InputType.values[data['type']],
         options = data['options'];
 
@@ -28,13 +30,15 @@ class Question {
 }
 
 class ScoutForm {
+  final String id;
   final String name;
   final List<Question> questions;
 
-  ScoutForm({required this.name, this.questions = const []});
+  ScoutForm({required this.id, required this.name, this.questions = const []});
 
   ScoutForm.fromJson(Map<String, dynamic> json)
-      : name = json['name'],
+      : id = json['id'],
+        name = json['name'],
         questions = json['questions']
             .map((question) => Question.fromJson(question))
             .toList();
