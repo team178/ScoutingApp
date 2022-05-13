@@ -1,6 +1,6 @@
-import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection, where;
-import 'package:scoutingapp/components/common/form.dart';
+import 'package:mongo_dart/mongo_dart.dart' show Db, DbCollection;
 
+import 'package:scoutingapp/components/common/form.dart';
 import 'package:scoutingapp/components/common/models.dart';
 
 class Mongo {
@@ -11,8 +11,12 @@ class Mongo {
   late final DbCollection _dataCol;
   late final DbCollection _formsCol;
 
-  Mongo() {
-    _db = Db('mongodb://localhost:27017/scouting');
+  Mongo(String uri) {
+    _db = Db(uri);
+  }
+
+  factory Mongo.from(String host, int port) {
+    return Mongo('mongodb://$host:$port/scouting');
   }
 
   Future<void> init() async {

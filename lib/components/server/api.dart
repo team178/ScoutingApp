@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:scoutingapp/components/server/config.dart';
 import 'package:shelf_plus/shelf_plus.dart';
 
 import 'package:scoutingapp/components/server/mongo.dart';
@@ -10,11 +12,24 @@ import 'package:scoutingapp/components/common/models.dart';
 /// which can be put into editor.swagger.io or similar software to
 /// see documentation.
 class API {
+
+  static late Mongo db;
+
+  /// Iniitialize MongoDB connection
+  static Future<void> initMongo() async {
+    if (ServerConfig.monogoURI != null) {
+      db = Mongo(ServerConfig.monogoURI.toString());
+      await db.init();
+      stdout.writeln("Connected to MongoDB at ${ServerConfig.monogoURI}");
+    } else {
+      db = Mongo.from(ServerConfig.mongoHost, ServerConfig.mongoPort);
+      await db.init();
+      stdout.writeln("Connected to MongoDB at ${ServerConfig.mongoHost}:${ServerConfig.mongoPort}");
+    }
+  }
+
   static Future<Handler> init() async {
     var app = Router().plus;
-
-    var db = Mongo();
-    await db.init();
 
     /// Sync
     app.post('/sync', (Request request) async {
