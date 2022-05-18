@@ -16,12 +16,20 @@ Make sure your commit messages are descriptive enough to know what you did by ju
 
 ### Running
 
-The app can be run using `flutter run`, as long as flutter and an emulator is available. You can install [Android Studio](https://developer.android.com/studio/) in order to get an emulator, so you can test the application without needing an actual android tablet.
-
-The server application can be run using regular dart, by doing
+The `bs.bat` script file can be used for running and building the app and server from one place on Windows. It will run `[dart|fltter] pub get`, along with the command to build or run the part.
 ```zsh
-dart run lib/server.dart
+./bs <run|build> <app|server> [args]
 ```
+
+If you don't want to use this script, or it dosen't work for you, you can use the following commands:
+```zsh
+dart run lib/server.dart # Run the server
+flutter run # Run the app
+dart compile exe lib/server.dart # Build the server
+flutter build apk # Build the app as an APK file
+```
+
+The app can be run as long as Flutter and an emulator is available. You can install [Android Studio](https://developer.android.com/studio/) in order to get an emulator, so you can test the application without needing an actual android tablet. *Running the server does not require an emulator, but may require Flutter to be installed.*
 
 ### Flutter
 
