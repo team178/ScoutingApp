@@ -15,7 +15,9 @@ class HomePage extends StatelessWidget {
         body: Container(
             alignment: Alignment.center,
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   // text
                   Text("Welcome, " + username,
