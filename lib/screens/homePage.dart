@@ -1,6 +1,7 @@
 // home page
 
 import 'package:flutter/material.dart';
+import 'package:scoutingapp/screens/scoutingPage.dart';
 
 class HomePage extends StatelessWidget {
   // variables
