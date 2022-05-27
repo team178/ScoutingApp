@@ -6,9 +6,8 @@ import 'package:scoutingapp/components/server/api.dart';
 import 'package:scoutingapp/components/server/config.dart';
 
 void main(List<String> args) async {
-  parseArgs(args);
-
   stdout.writeln("ScoutingApp data server");
+  await ServerConfig.loadFrom('config.json');
 
   await API.initMongo();
 
