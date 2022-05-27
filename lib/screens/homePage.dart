@@ -1,7 +1,6 @@
 // home page
 
 import 'package:flutter/material.dart';
-import 'package:scoutingapp/screens/syncPage.dart';
 import 'package:scoutingapp/screens/scoutingPage.dart';
 
 class HomePage extends StatelessWidget {
@@ -15,22 +14,24 @@ class HomePage extends StatelessWidget {
         body: Container(
             alignment: Alignment.center,
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   // text
-                  Text("Welcome, " + username,
+                  Text("Welcome, $username",
                       style: TextStyle(
                         fontSize: size.width * 0.08,
                         fontWeight: FontWeight.bold,
                       )),
                   // scout button
                   ElevatedButton.icon(
-                    label: Text("Scout"),
-                    icon: Icon(Icons.auto_fix_high, size: 32),
+                    label: const Text("Scout"),
+                    icon: const Icon(Icons.auto_fix_high, size: 32),
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(width: 1, color: Colors.grey),
-                      minimumSize: Size(150.0, 50.0),
+                      shape: const StadiumBorder(),
+                      side: const BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: const Size(150.0, 50.0),
                     ),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
@@ -42,17 +43,17 @@ class HomePage extends StatelessWidget {
                   ),
                   // sync button
                   ElevatedButton.icon(
-                    label: Text("Sync"),
-                    icon: Icon(Icons.all_inclusive, size: 32),
+                    label: const Text("Sync"),
+                    icon: const Icon(Icons.all_inclusive, size: 32),
                     style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      side: BorderSide(width: 1, color: Colors.grey),
-                      minimumSize: Size(150.0, 50.0),
+                      shape: const StadiumBorder(),
+                      side: const BorderSide(width: 1, color: Colors.grey),
+                      minimumSize: const Size(150.0, 50.0),
                     ),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return SyncPage();
+                          return HomePage();
                         },
                       ));
                     },
