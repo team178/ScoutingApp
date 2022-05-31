@@ -54,6 +54,11 @@ class Mongo {
     await _formsCol.insertMany(forms.map((form) => form.toJson()).toList());
   }
 
+  Future<bool> updateForm(ScoutForm form, String id) async {
+    Map<String, dynamic> res = await _formsCol.update({'id':id}, form.toJson());
+    return res.isNotEmpty;
+  }
+
   Future<Team?> getTeam(int number) async {
     var teams = await getTeams({'number': number});
     if (teams.isEmpty) {
@@ -111,15 +116,28 @@ class Mongo {
     return datas.map((data) => ScoutData.fromJson(data)).toList();
   }
 
-  Future<ScoutForm> getForm(String id) async {
-    var form = await _formsCol.aggregateToStream([
+  Future<List<ScoutForm>> getAllForms() async {
+    var forms = _formsCol.aggregateToStream([
+      {
+        "\$project": {"_id": 0}
+      }
+    ]);
+    return forms.map((form) => ScoutForm.fromJson(form)).toList();
+  }
+
+  Future<ScoutForm?> getForm(String id) async {
+    var form = _formsCol.aggregateToStream([
       {
         "\$project": {"_id": 0}
       },
       {
         "\$match": {"id": id}
       }
-    ]).first;
-    return ScoutForm.fromJson(form);
+    ]);
+    try {
+      return ScoutForm.fromJson(await form.first);
+    } on StateError {
+      return null;
+    }
   }
 }
