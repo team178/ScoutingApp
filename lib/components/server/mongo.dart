@@ -55,7 +55,8 @@ class Mongo {
   }
 
   Future<bool> updateForm(ScoutForm form, String id) async {
-    Map<String, dynamic> res = await _formsCol.update({'id':id}, form.toJson());
+    Map<String, dynamic> res =
+        await _formsCol.update({'id': id}, form.toJson());
     return res.isNotEmpty;
   }
 
