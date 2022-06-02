@@ -22,17 +22,20 @@ class Question {
   final String id;
   final String title;
   final InputType type;
+  final bool isRequired;
   final List<SelectOption>? options;
 
   Question(
       {required this.id,
       required this.title,
       required this.type,
+      this.isRequired = false,
       this.options});
   Question.fromJson(Map<String, dynamic> data)
       : id = data['id'],
         title = data['title'],
         type = InputType.values.byName(data['type']),
+        isRequired = data['required'] ?? false,
         options = data['options'] == null
             ? null
             : List<SelectOption>.from(
