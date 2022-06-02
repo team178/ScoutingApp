@@ -7,7 +7,7 @@ import 'package:scoutingapp/components/common/models.dart';
 class SyncClientData {
   final List<Match> matches;
   final List<Team> teams;
-  final ScoutForm form;
+  final ScoutForm? form;
 
   SyncClientData(this.matches, this.teams, this.form);
 }
@@ -38,9 +38,11 @@ class SyncClient {
     Map<String, dynamic> data = jsonDecode(body);
 
     List<Match> matches =
-        data['matches'].map((e) => Match.fromJson(e)).toList();
-    List<Team> teams = data['teams'].map((e) => Team.fromJson(e)).toList();
-    ScoutForm form = data['forms'].map((e) => ScoutForm.fromJson(e)).toList();
+        List<Match>.from(data['matches'].map((e) => Match.fromJson(e)));
+    List<Team> teams =
+        List<Team>.from(data['teams'].map((e) => Team.fromJson(e)));
+    ScoutForm? form =
+        data['form'] == null ? null : ScoutForm.fromJson(data['form']);
 
     return SyncClientData(matches, teams, form);
   }

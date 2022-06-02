@@ -1,8 +1,8 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: ScoutingApp
-  version: '1.0'
-  description: 'Team 178 Scouting App'
+  version: '1.1'
+  description: ''
 servers:
   - url: 'http://localhost:8080'
     description: dev server
@@ -104,6 +104,31 @@ paths:
                   cities-burned:
                     $gte: 1
                   bugs-patched: 187
+  /brewCoffee:
+    get:
+      summary: Teapot
+      tags: []
+      responses:
+        '418':
+          description: I'm a teapot (RFC 2324)
+          content:
+            text/html:
+              schema:
+                type: string
+              examples:
+                teapot:
+                  value: >-
+                    <h1>HTCPCP 418</h1><h2>I'm a teapot</h2>I'm a little
+                    teapot,<br>short and stout;<br>Here is my handle,<br>and
+                    here is my spout;<br>When I get all steamed up, hear me
+                    shout;<br>Tip me over,<br>and pour me out!<br><br><a
+                    href="https://datatracker.ietf.org/doc/html/rfc2324">RFC2324</a><br><br><a
+                    href="https://github.com/AM2i9">Patrick</a> was here<br>You
+                    guys left me to design this, I can add easter eggs :)
+      operationId: brew-coffee
+      description: ''
+      x-internal: true
+    parameters: []
   /teams/all:
     get:
       summary: Get all Teams
@@ -272,6 +297,113 @@ paths:
               $ref: '#/components/schemas/Match'
       tags:
         - matches
+  /forms/all:
+    get:
+      summary: Get all forms
+      tags:
+        - forms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ScoutForm'
+      operationId: get-all-forms
+      description: Get a list of all forms
+  '/forms/{id}':
+    get:
+      summary: Get form by ID
+      tags:
+        - forms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoutForm'
+        '404':
+          description: Not Found
+      operationId: get-form-by-id
+      description: Get a scouting form by ID
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: Form ID
+    put:
+      summary: Replace form
+      operationId: replace-form
+      responses:
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+      description: Replace a form with the specified ID with a new form object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoutForm'
+        description: ''
+      tags:
+        - forms
+  /forms/create:
+    post:
+      summary: Create form
+      operationId: create-form
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+      description: Create a scout form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScoutForm'
+      tags:
+        - forms
+  /forms/current:
+    get:
+      summary: Get current active Form
+      tags:
+        - forms
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScoutForm'
+        '204':
+          description: No Content
+      operationId: get-current-form
+    put:
+      summary: Set currently active Form
+      operationId: set-current-form
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+        description: Must be the ID of a currently existing ScoutForm
+      tags:
+        - forms
 components:
   schemas:
     FormQuestion:
@@ -427,5 +559,6 @@ components:
   responses: {}
 tags:
   - name: data
+  - name: forms
   - name: matches
   - name: teams

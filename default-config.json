@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "port": 8080,
+    "mongoHost": "localhost",
+    "mongoPort": 27017,
+    "mongoURI": null,
+    "currentForm": null
+}
