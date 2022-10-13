@@ -6,13 +6,13 @@ import 'package:shelf_plus/shelf_plus.dart';
 
 import 'package:scoutingapp/components/server/mongo.dart';
 import 'package:scoutingapp/components/common/models.dart';
+import 'package:scoutingapp/components/common/form.dart';
 
 /// Scouting App API
 /// OpenAPI specification can be found in `api.yaml`,
 /// which can be put into editor.swagger.io or similar software to
 /// see documentation.
 class API {
-
   static late Mongo db;
 
   /// Iniitialize MongoDB connection
@@ -24,7 +24,8 @@ class API {
     } else {
       db = Mongo.from(ServerConfig.mongoHost, ServerConfig.mongoPort);
       await db.init();
-      stdout.writeln("Connected to MongoDB at ${ServerConfig.mongoHost}:${ServerConfig.mongoPort}");
+      stdout.writeln(
+          "Connected to MongoDB at ${ServerConfig.mongoHost}:${ServerConfig.mongoPort}");
     }
   }
 
@@ -42,13 +43,17 @@ class API {
         return Response.badRequest(body: 'Bad Request: ${e.toString()}');
       }
 
-      await db.insertDatas(datas);
+      if (datas.isNotEmpty) {
+        await db.insertDatas(datas);
+      }
 
       var teams = await db.getTeams({});
       var matches = await db.getMatches({});
 
-      //! TO BE IMPLEMENTED
-      var form = null;
+      ScoutForm? form;
+      if (ServerConfig.currentForm != null) {
+        form = await db.getForm(ServerConfig.currentForm!);
+      }
 
       return Response(202,
           body: jsonEncode({"matches": matches, "teams": teams, "form": form}),
@@ -187,6 +192,81 @@ class API {
       }
       await db.insertMatches([match]);
       return Response(201);
+    });
+
+    /// Get all forms
+    app.get('/forms', (Request request) async {
+      var forms = await db.getAllForms();
+      return forms.map((e) => e.toJson()).toList();
+    });
+
+    /// Get form by id
+    app.get('/forms/id/<id>', (Request request, String id) async {
+      var form = await db.getForm(id);
+      if (form == null) {
+        return Response.notFound("Form not found");
+      }
+      return form.toJson();
+    });
+
+    /// Replace form
+    app.put('/forms/id/<id>', (Request request, String id) async {
+      ScoutForm form;
+      try {
+        form = ScoutForm.fromJson(await request.body.asJson);
+      } on TypeError catch (e) {
+        return Response.badRequest(body: "Bad request: ${e.toString()}");
+      }
+      if (await db.updateForm(form, id)) {
+        return Response(200);
+      } else {
+        return Response.notFound("Form not found");
+      }
+    });
+
+    /// Create form
+    app.post('/forms/create', (Request request) async {
+      ScoutForm form;
+      try {
+        var json = await request.body.asJson;
+        form = ScoutForm.fromJson(json);
+      } on TypeError catch (e) {
+        return Response.badRequest(body: "Bad request: ${e.toString()}");
+      }
+      await db.insertForm(form);
+      return Response(201);
+    });
+
+    /// Get current active Form
+    app.get('/forms/current', (Request request) async {
+      var id = ServerConfig.currentForm;
+      if (id != null) {
+        var form = await db.getForm(id);
+        if (form == null) {
+          return Response(204);
+        }
+        return form.toJson();
+      }
+      return Response(204);
+    });
+
+    /// Set current active Form
+    app.put('/forms/current', (Request request) async {
+      var body = await request.body.asJson;
+      var id = body['id'];
+      if (id == null) {
+        return Response.badRequest(
+            body: "Bad request: Must have valid 'id' field");
+      }
+
+      if (await db.getForm(id) == null) {
+        return Response.badRequest(body: "Form with id '$id' not found");
+      }
+
+      ServerConfig.currentForm = id;
+      ServerConfig.save();
+
+      return Response(200);
     });
 
     /// HTCPCP
